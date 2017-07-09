@@ -1,0 +1,34 @@
+1. Wyœwietliæ pracowników, którzy maj¹ maksymaln¹ i minimaln¹ p³acê
+
+SELECT department.dept_id,dept_name, emp_lname, emp_fname,salary 
+FROM department natural join employee 
+WHERE salary= ((SELECT MAX(salary) FROM employee)) OR (salary =(SELECT MIN(salary) FROM employee)) 
+
+2.Wypisac maksymalna i minimalna placa w danym dziale
+
+SELECT department.dept_id, dept_name,MAX(salary), MIN(salary) 
+FROM department, employee 
+WHERE department.dept_id=employee.dept_id 
+GROUP BY department.dept_id, dept_name 
+
+3. Wyœwietliæ pracowników, którzy maj¹ pensjê ni¿sz¹ od œredniej
+
+SELECT emp_fname,emp_lname,salary
+FROM employee
+WHERE salary<(SELECT AVG(salary) FROM employee)
+ORDER BY salary
+
+4.Wyœwietl wszystkie produkty sprzedane w okresie od 1 kwietnia 1993 do 1 kwietnia 1994,
+
+SELECT name, ship_date 
+FROM sales_order_items KEY JOIN product 
+WHERE ship_date BETWEEN '1993-04-01' AND '1994-04-01' 
+ORDER BY ship_date 
+
+
+5.Wyœwietl liczbê klientów obs³u¿onych przez Samuela Singera oraz Pamele Savarino
+
+SELECT COUNT(), emp_fname, emp_lname 
+FROM sales_order KEY JOIN employee 
+WHERE emp_lname='Singer' OR emp_lname='savarino' 
+GROUP BY emp_lname, emp_fname 

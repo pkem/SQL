@@ -1,0 +1,18 @@
+Zapytanie 1
+
+SELECT emp_fname, emp_lname, AVG (salary) as srednia
+FROM employee 
+WHERE salary < (SELECT  AVG (salary) as srednia 
+FROM employee ) 
+GROUP BY emp_fname, emp_lname, dept_id 
+
+
+Zapytanie 2 
+
+SELECT name, description, count(distinct cust_id) as ilosc FROM product 
+key join sales_order_items key join sales_order key join employee 
+GROUP BY name, description 
+HAVING ilosc>20 
+
+
+
